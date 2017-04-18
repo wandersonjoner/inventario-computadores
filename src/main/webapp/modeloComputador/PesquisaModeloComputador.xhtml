@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa de modelo de computador</ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>Pesquisa de modelo de computador</h1>
+    	
+    	<h:form id="frmPesquisa">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Novo" id="botaoNovo" action="/modeloComputador/CadastroModeloComputador.xhtml"/>
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:dataTable id="modelosComputadorTable" value="#{pesquisaModeloComputadorBean.modelosComputador}" var="modeloComputador"
+		    		style="margin-top: 20px" emptyMessage="Nenhum modelo de computador encontrado." rows="20"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		<p:column headerText="Código" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{modeloComputador.codigo}" />
+	    		</p:column>
+	    		<p:column headerText="Modelo">
+	    			<h:outputText value="#{modeloComputador.descricao}" />
+	    		</p:column>
+	    		<p:column headerText="Fabricante">
+	    			<h:outputText value="#{modeloComputador.fabricante.nome}" />
+	    		</p:column>
+	    		<p:column headerText="Categoria">
+	    			<h:outputText value="#{modeloComputador.categoria}" />
+	    		</p:column>
+	    		<p:column style="width: 100px; text-align: center">
+		    		<p:button outcome="CadastroModeloComputador" icon="ui-icon-pencil" title="Editar">
+		    			<f:param name="modeloComputador" value="#{modeloComputador.codigo}"/>
+		    		</p:button>
+		    		<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
+							process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener target="#{pesquisaModeloComputadorBean.modeloComputadorSelecionado}" value="#{modeloComputador}" />
+					</p:commandButton>
+		    	</p:column>
+		   	</p:dataTable>
+		   	<p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
+	        		message="Tem certeza que deseja excluir o modelo #{pesquisaModeloComputadorBean.modeloComputadorSelecionado.descricao}?"  
+	                header="Exclusão de modelo de Computador" severity="alert">
+	        	<p:button value="Não" onclick="confirmacaoExclusao.hide(); return false;" />
+	        	<p:commandButton value="Sim" update=":frmPesquisa:modelosComputadorTable"
+	        			onclick="confirmacaoExclusao.hide()" action="#{pesquisaModelosComputadorBean.excluir}" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>

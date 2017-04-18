@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-04-06T10:48:52 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioFabricante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e748d64-b878-41ea-b1f1-3197431c3559">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="aW52ZW50YXJpby5gRmFicmljYW50ZWAgQVMgLDE1NSw1Myw1ZWFlZTJjOC00MzM0LTQ5ZDMtOGNh&#xA;Ni0xYTNkNTgzODM3ZjM7"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT inventario.`Fabricante`.nome
+FROM inventario.`Fabricante`]]>
+	</queryString>
+	<field name="nome" class="java.lang.String"/>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="94" uuid="6bc40177-451f-459e-9ca4-c567b5199dad"/>
+				<textElement textAlignment="Center">
+					<font size="67" isBold="true" isItalic="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[XcomEducation]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="25" width="550" height="30" uuid="eff1e773-2956-418b-bb76-8acbc9a58aaa"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE FABRICANTES]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="40" width="150" height="20" uuid="5fef8e33-da14-4397-83e7-4a6551f43f51"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME FABRICANTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="100" height="20" uuid="55a3566d-f977-440d-b439-fce6ea72cc32"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="27" width="550" height="30" uuid="9a666d55-777b-4c62-930b-135fd57ccb7b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Santa Maria DF, QR 100 CONJUNTO J CASA 02]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

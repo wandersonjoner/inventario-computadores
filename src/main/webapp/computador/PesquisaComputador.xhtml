@@ -1,0 +1,70 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa de Computadores</ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>Pesquisa de computador</h1>
+    	
+    	<h:form id="frmPesquisa">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+    		
+    		<p:toolbar style="margin-top: 20px">
+    			<p:toolbarGroup>
+    				<p:commandButton value="Novo" id="botaoNovo" action="/computador/CadastroComputador.xhtml"/>
+    			</p:toolbarGroup>
+    		</p:toolbar>
+    	
+	    	<p:dataTable id="computadoresTable" value="#{pesquisaComputadorBean.Computadores}" var="computador"
+		    		style="margin-top: 20px" emptyMessage="Nenhum computador encontrado." rows="20"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+		    		<p:column headerText="Código" style="text-align: center; width: 100px">
+		    			<h:outputText value="#{computador.codigo}" />
+		    		</p:column>
+		    		<p:column headerText="Patrimonio">
+		    			<h:outputText value="#{computador.patrimonio}" />
+		    		</p:column>
+		    		<p:column headerText="Cor">
+		    			<h:outputText value="#{computador.cor}" />
+		    		</p:column>
+		    		
+		    		<p:column headerText="Acessórios" style="width: 100px; text-align: center">
+		    			<p:commandButton icon="ui-icon-extlink" title="Acessórios" action="#{pesquisaComputadorBean.buscarComputadorComAcessorios}"
+		    					process="@this" oncomplete="mostraAcessorios.show()" update=":frmPesquisa:mostraAcessoriosDialog">
+		    				<f:setPropertyActionListener target="#{pesquisaComputadorBean.computadorSelecionado}" value="#{computador}" />
+		    			</p:commandButton>
+		    		</p:column>
+		    		<p:column style="width: 100px; text-align: center">
+		    			<p:button outcome="CadastroComputador" icon="ui-icon-pencil" title="Editar">
+		    				<f:param name="carro" value="#{computador.codigo}"/>
+		    			</p:button>
+		    			<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
+								process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+							<f:setPropertyActionListener target="#{pesquisaComputadorBean.ComputadorSelecionado}" value="#{computador}" />
+						</p:commandButton>
+		    		</p:column>
+		    </p:dataTable>
+		   
+		    <p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
+	        		message="Tem certeza que deseja excluir o computador de patrimonio #{pesquisaComputadorBean.computadorSelecionado.patrimonio}?"  
+	                header="Exclusão de computador" severity="alert">
+	        	<p:button value="Não" onclick="confirmacaoExclusao.hide(); return false;" />
+	        	<p:commandButton value="Sim" update=":frmPesquisa:computadoresTable"
+	        			onclick="confirmacaoExclusao.hide()" action="#{pesquisaComputadorBean.excluir}" />
+	    	</p:confirmDialog>
+	    	
+	    	<p:dialog id="mostraAcessoriosDialog" header="Acessórios" widgetVar="mostraAcessorios" modal="true">
+    			<p:dataList value="#{pesquisaComputadorBean.ComputadorSelecionado.acessorios}" var="acessorio" itemType="disc"
+    					rendered="#{not empty pesquisaComputadorBean.computadorSelecionado.acessorios}">
+    				#{acessorio.descricao}
+    			</p:dataList>
+    			<h:outputText value="Nenhum acessório" rendered="#{empty pesquisaComputadorBean.computadorSelecionado.acessorios}"/>
+			</p:dialog>
+	    	
+	    </h:form>
+    </ui:define>
+</ui:composition>

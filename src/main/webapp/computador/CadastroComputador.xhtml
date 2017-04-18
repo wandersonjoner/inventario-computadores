@@ -1,0 +1,68 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Novo computador</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="computador"
+				value="#{cadastroComputadorBean.computador}" />
+		</f:metadata>
+
+		<h1>Novo carro</h1>
+
+		<h:form id="frmCadastro">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroComputadorBean.salvar}" update="frmCadastro" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/computador/PesquisaComputadores.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel" style="width: 100%"
+				columnClasses="rotulo, campo">
+				<p:outputLabel value="Código" for="codigo" />
+				<p:inputText id="codigo" size="20" maxlength="20"
+					value="#{cadastroComputadorBean.computador.codigo}" readonly="true" />
+
+				<p:outputLabel value="Modelo Computador" for="modeloComputador" />
+				<p:selectOneMenu id="modeloComputador"
+					value="#{cadastroComputadorBean.computador.modelo}">
+					<f:selectItem itemLabel="Selecione o modelo" />
+					<f:selectItems
+						value="#{cadastroComputadorBean.modelosComputadores}"
+						var="modelosComputadores"
+						itemLabel="#{modelosComputadores.descricao}"
+						itemValue="#{modelosComputadores}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Patrimonio" for="patrimonio" />
+				<p:inputText id="patrimonio" size="20" maxlength="20"
+					value="#{cadastroComputadorBean.computador.patrimonio}" />
+
+				<p:outputLabel value="Cor" for="cor" />
+				<p:inputText id="cor" size="20" maxlength="20"
+					value="#{cadastroComputadorBean.computador.cor}" />
+
+				<p:outputLabel value="Acessórios" for="acessorios" />
+				<p:selectManyCheckbox id="acessorios" styleClass="many-checkbox"
+					value="#{cadastroComputadorBean.computador.acessorios}"
+					converter="acessorioConverter">
+					<f:selectItems value="#{cadastroComputadorBean.acessorios}"
+						var="acessorio" itemLabel="#{acessorio.descricao}"
+						itemValue="#{acessorio}" />
+				</p:selectManyCheckbox>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
