@@ -17,6 +17,6 @@ Inventario de computadores com Java EE para Web usando CDI, JPA, HIBERNATE, JSF.
 
 7 - Não é necessário criar a tabela Fabricante o Hibernate vai fazer isso pra vc;
 
-8 - O CRUD do Fabricante e ModeloComputador estão funcional, acescentei também a categoria que um Enum;
+8 - O CRUD do Fabricante e ModeloComputador estão funcional, acrescentei também a categoria que um Enum;
 
 9 - End Pesquisa de Fabricantes localhost:8080/inventario-computadores/fabricante/PesquisaFabricantes.xhtml
